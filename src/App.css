@@ -3,35 +3,97 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 4px solid whitesmoke;
+  border: 5px solid blue;
+  outline: 3px solid lightgreen;
   min-width: 200px;
   min-height: 200px;
   padding: 20px;
   margin: 20px;
-  box-shadow: 12px 12px 12px lightgreen;
-}
-.stopwatch:hover {
-  border: 5px solid blue;
 }
 .watch {
-  font-size: 50px;
-  margin-bottom: 150px;
+  display: flex;
 }
+.watch > h1 {
+  color: white;
+  font-size: 50px;
+}
+.hour {
+  border: 2px solid white;
+  width: 100px;
+  height: 150px;
+  margin: 20px;
+  font-size: 40px;
+  color: white;
+  background-color: blue;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.minute {
+  border: 2px solid white;
+  width: 100px;
+  height: 150px;
+  margin: 20px;
+  font-size: 40px;
+  color: white;
+  border-radius: 5px;
+  background-color: green;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.sec {
+  border: 2px solid white;
+  width: 100px;
+  height: 150px;
+  margin: 20px;
+  font-size: 40px;
+  color: white;
+  background-color: red;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.mini {
+  border: 1px solid white;
+  border-radius: 5px;
+  width: 100px;
+  height: 150px;
+  margin: 20px;
+  font-size: 40px;
+  color: white;
+  background-color: gray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .buttons {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
+.buttons > button {
+  width: 100px;
+  height: 50px;
+  font-size: 20px;
+  background-color: orange;
+  border: 1px solid orange;
+}
+
 .history {
-  margin: 10px;
-  padding: 10px;
-  border-left: 3px solid blue;
+  border: 2px solid white;
+  min-width: 100vw;
+  min-height: 100vh;
 }
-.history_item {
-  margin: 5px;
-  padding: 5px;
-  border-bottom: 5px solid white;
-  text-align: center;
-  font-weight: 200;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+.go_back {
+  position: fixed;
+  top: 80%;
+  left: 50%;
 }

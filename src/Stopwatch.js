@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import "./App.css";
 function Stopwatch(props) {
@@ -8,8 +8,25 @@ function Stopwatch(props) {
   const [started, setStart] = useState(false);
   const [stopped, setStop] = useState(false);
   const [prevtime, setPreTime] = useState(0);
+  const hour = useRef("00");
+  const minute = useRef("00");
+  const sec = useRef("00");
+  const mini = useRef("000");
   const h = useHistory();
   const countRef = useRef(null);
+
+  useEffect(() => {
+    const minisec = `00${time}`.slice(-3);
+    const second = Math.floor(time / 1000);
+    const getSeconds = `0${second % 60}`.slice(-2);
+    const minutes = `${Math.floor(second / 60)}`;
+    const getMinutes = `0${minutes % 60}`.slice(-2);
+    const getHours = `0${Math.floor(second / 3600)}`.slice(-2);
+    hour.current = getHours;
+    minute.current = getMinutes;
+    sec.current = getSeconds;
+    mini.current = minisec;
+  }, [time]);
 
   const handleHistory = () => {
     h.push("/history");
@@ -31,7 +48,15 @@ function Stopwatch(props) {
   const handleStop = () => {
     if (!stopped) {
       setStop(true);
-      const val = formatTime();
+      const val =
+        hour.current +
+        "h" +
+        minute.current +
+        "m" +
+        sec.current +
+        "s" +
+        mini.current +
+        "ms";
       props.setData(val);
       setStart(false);
       setPreTime(time);
@@ -43,24 +68,39 @@ function Stopwatch(props) {
     clearInterval(countRef.current);
     setPaused(false);
     setPreTime(0);
+    hour.current = "00";
+    minute.current = "00";
+    sec.current = "00";
+    mini.current = "000";
     setTime(0);
     setStart(false);
     setStop(false);
   };
-  const formatTime = () => {
-    const minisec = `00${time}`.slice(-3);
-    const second = Math.floor(time / 1000);
-    const getSeconds = `0${second % 60}`.slice(-2);
-    const minutes = `${Math.floor(second / 60)}`;
-    const getMinutes = `0${minutes % 60}`.slice(-2);
-    const getHours = `0${Math.floor(second / 3600)}`.slice(-2);
 
-    return `${getHours} h : ${getMinutes} m : ${getSeconds} s : ${minisec} ms`;
-  };
   return (
     <div className="App">
       <div className="stopwatch">
-        <div className="watch">{formatTime()}</div>
+        <div className="watch">
+          <div className="hour">
+            {hour.current}
+            <span>Hour</span>
+          </div>
+          <h1>:</h1>
+          <div className="minute">
+            {minute.current}
+            <span>Min</span>
+          </div>
+          <h1>:</h1>
+          <div className="sec">
+            {sec.current}
+            <span>Sec</span>
+          </div>
+          <h1>:</h1>
+          <div className="mini">
+            {mini.current}
+            <span>ms</span>
+          </div>
+        </div>
         <div className="buttons">
           <button className="btn btn-success" onClick={handleStart}>
             Start
@@ -72,7 +112,7 @@ function Stopwatch(props) {
             Reset
           </button>
           <button className="btn btn-info" onClick={handleHistory}>
-            View History
+            History
           </button>
         </div>
       </div>
